@@ -2,6 +2,8 @@
 //
 
 #include <iostream>
+
+#include "Interface.h"
 #include "MachineFactory.h"
 
 int main()
@@ -14,22 +16,22 @@ int main()
 	}
 	catch (std::exception &e)
 	{
-        std::cout << "Exception thrown: " << e.what() << "\nNie udalo sie utworzyc automatu z pliku konfiguracyjnego\n";
+        std::cout << "Wyjatek: " << e.what() << "\nNie udalo sie utworzyc automatu z pliku konfiguracyjnego\n";
         return 1;
 	}
-
+   
     try
     {
+        Interface ui = Interface("graph", &machine);
         int tapeLength;
         std::cin >> tapeLength;
-        machine.logCurrentState(std::cout);
-
+        ui.displayFrame();
         for (int i = 0; i < tapeLength; i++)
         {
             int temp;
             std::cin >> temp;
             machine.moveTape(temp);
-            machine.logCurrentState(std::cout);
+            ui.displayFrame();
         }
         if(machine.isInEndingState())
         {
@@ -39,11 +41,10 @@ int main()
         {
             std::cout << "Ciag nie zostal zaakceptowany, wykonywanine nie zakonczylo sie na symbolu koncowym\n";
         }
-    	machine.logPath(std::cout);
     }
     catch (std::exception &e)
     {
-        std::cout << "Exception thrown: " << e.what() << "\nCiag nie zostal zaakceptowany \n";
+        std::cout << "Wyjatek: " << e.what() << "\nCiag nie zostal zaakceptowany \n";
         return 1;
     }
     

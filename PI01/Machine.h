@@ -10,8 +10,6 @@ class Machine
 {
 	std::map<int, std::map<std::string, std::string>> transitions;
 	std::string currentState;
-	std::string path;
-	std::string pathSeparator = "->";
 	std::vector<std::string> endingStates;
 
 public:
@@ -23,10 +21,6 @@ public:
 	void moveTape(int nextSymbol);
 
 	std::string getCurrentState();
-
-	void logCurrentState(std::ostream& out);
-
-	void logPath(std::ostream& out);
 
 	bool isInEndingState();
 };

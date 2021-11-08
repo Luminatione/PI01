@@ -139,11 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Interface.cpp" />
     <ClCompile Include="Machine.cpp" />
     <ClCompile Include="MachineFactory.cpp" />
     <ClCompile Include="PI01.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Interface.h" />
     <ClInclude Include="Machine.h" />
     <ClInclude Include="MachineFactory.h" />
   </ItemGroup>

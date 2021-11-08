@@ -6,7 +6,6 @@ Machine::Machine(std::string startState, std::map<int, std::map<std::string, std
 	{
 		throw std::exception("Illegal start symbol");
 	}
-	path += startState;
 }
 
 void Machine::moveTape(int nextSymbol)
@@ -14,7 +13,6 @@ void Machine::moveTape(int nextSymbol)
 	if(transitions.count(nextSymbol))
 	{
 		currentState = transitions[nextSymbol][currentState];
-		path += pathSeparator + currentState;
 		if(currentState == MACHINE_NO_TRANSITION_SYMBOL)
 		{
 			throw std::exception("Illegal transition");
@@ -27,16 +25,6 @@ void Machine::moveTape(int nextSymbol)
 std::string Machine::getCurrentState()
 {
 	return currentState;
-}
-
-void Machine::logCurrentState(std::ostream& out)
-{
-	out << "Aktualny stan: " << currentState << std::endl;
-}
-
-void Machine::logPath(std::ostream& out)
-{
-	out << "Diagram przejsc " << path;
 }
 
 bool Machine::isInEndingState()
