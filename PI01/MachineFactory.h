@@ -8,8 +8,11 @@
 class MachineFactory
 {
 	std::fstream file;
+	std::map<int, std::map<std::string, std::string>> transitions;
+	std::vector<std::string> endingStates;
 public:
+	MachineFactory(std::string configurationFileName);
+	Machine CreateMachine(std::string startState);
 
-	Machine CreateMachineFromFile(std::string configurationFileName, std::string startState);
 	~MachineFactory();
 };

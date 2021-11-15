@@ -1,6 +1,6 @@
 ﻿#include "MachineFactory.h"
 
-Machine MachineFactory::CreateMachineFromFile(std::string configurationFileName, std::string startState)
+MachineFactory::MachineFactory(std::string configurationFileName)
 {
 	file = std::fstream(configurationFileName, std::ios::in);
 	if (!file.is_open() || !file.good())
@@ -22,7 +22,7 @@ Machine MachineFactory::CreateMachineFromFile(std::string configurationFileName,
 		file >> alphabet[i];
 	}
 
-	std::map<int, std::map<std::string, std::string>> transitions = std::map<int, std::map<std::string, std::string>>();
+	transitions = std::map<int, std::map<std::string, std::string>>();
 	for (int i = 0; i < statesAmount; i++)
 	{
 		for (int j = 0; j < alphabetSize; j++)
@@ -31,12 +31,17 @@ Machine MachineFactory::CreateMachineFromFile(std::string configurationFileName,
 		}
 	}
 
-	std::vector<std::string> endingStates = std::vector<std::string>(endingStatesAmount);
+	endingStates = std::vector<std::string>(endingStatesAmount);
 	for (int i = 0; i < endingStatesAmount; i++)
 	{
 		file >> endingStates[i];
 	}
 	file.close();
+
+}
+
+Machine MachineFactory::CreateMachine(std::string startState)
+{
 	return Machine(startState, transitions, endingStates);
 }
 

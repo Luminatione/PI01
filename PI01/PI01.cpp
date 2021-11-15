@@ -2,17 +2,19 @@
 //
 
 #include <iostream>
+#include <conio.h>
 
 #include "Interface.h"
 #include "MachineFactory.h"
 
+
 int main()
 {
-    MachineFactory machineFactory;
+    MachineFactory machineFactory("conf");
     Machine machine;
 	try
 	{
-        machine = machineFactory.CreateMachineFromFile("conf", "q0");
+        machine = machineFactory.CreateMachine("q0");
 	}
 	catch (std::exception &e)
 	{
@@ -25,13 +27,17 @@ int main()
         Interface ui = Interface("graph", &machine);
         int tapeLength;
         std::cin >> tapeLength;
+        std::vector<int> tape(tapeLength);
+        for (int i = 0; i < tapeLength; i++)
+        {
+            std::cin >> tape[i];
+        }
         ui.displayFrame();
         for (int i = 0; i < tapeLength; i++)
         {
-            int temp;
-            std::cin >> temp;
-            machine.moveTape(temp);
+            machine.moveTape(tape[i]);
             ui.displayFrame();
+            _getch();
         }
         if(machine.isInEndingState())
         {
