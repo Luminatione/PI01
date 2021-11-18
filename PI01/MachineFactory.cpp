@@ -5,7 +5,7 @@ MachineFactory::MachineFactory(std::string configurationFileName)
 	file = std::fstream(configurationFileName, std::ios::in);
 	if (!file.is_open() || !file.good())
 	{
-		throw std::exception("Failed to open specified file");
+		throw std::exception("Failed to open configuration file");
 	}
 	int statesAmount, alphabetSize, endingStatesAmount;
 	file >> statesAmount >> alphabetSize >> endingStatesAmount;
@@ -43,10 +43,4 @@ MachineFactory::MachineFactory(std::string configurationFileName)
 Machine MachineFactory::CreateMachine(std::string startState)
 {
 	return Machine(startState, transitions, endingStates);
-}
-
-MachineFactory::~MachineFactory()
-{
-	if (file.is_open())
-		file.close();
 }

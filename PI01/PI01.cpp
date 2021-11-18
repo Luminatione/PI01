@@ -10,10 +10,11 @@
 
 int main()
 {
-    MachineFactory machineFactory("conf");
+    MachineFactory machineFactory;
     Machine machine;
 	try
 	{
+        machineFactory = MachineFactory("conf");
         machine = machineFactory.CreateMachine("q0");
 	}
 	catch (std::exception &e)
@@ -26,7 +27,9 @@ int main()
     {
         Interface ui = Interface("graph", &machine);
         int tapeLength;
+        std::cout << "Dlugosc tasmy: ";
         std::cin >> tapeLength;
+        std::cout << "Zawartosc tasmy (kolejne elementy oddzielone bialym znakiem): ";
         std::vector<int> tape(tapeLength);
         for (int i = 0; i < tapeLength; i++)
         {
